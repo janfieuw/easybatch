@@ -1,10 +1,10 @@
 {
-  "name": "EASYBATCH Prikklok",
+  "name": "EASYBATCH",
   "short_name": "EASYBATCH",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "background_color": "#FDC500",
+  "theme_color": "#FDC500",
   "icons": [
     {
       "src": "icon-192.png",
@@ -18,3 +18,4 @@
     }
   ]
 }
+

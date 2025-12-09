@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scannerDiv = document.getElementById('scanner');
   const scanStatus = document.getElementById('scan-status');
 
-  // PWA service worker registreren (optioneel maar handig)
+  // Service worker voor PWA
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(err => {
       console.warn('Service worker registratie mislukt:', err);
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
 
-    // Demo credentials
     if (email === 'demo@demo.be' && password === 'demo') {
       currentUser = { email };
       loginError.textContent = '';
@@ -74,9 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
       html5QrCode = new Html5Qrcode('scanner');
 
       html5QrCode.start(
-        { facingMode: "environment" },
+        { facingMode: 'environment' },
         { fps: 10, qrbox: 250 },
-        (decodedText) => {
+        decodedText => {
           onQrScanned(decodedText);
         },
         () => {
@@ -92,14 +91,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function stopScannerIfRunning() {
     if (html5QrCode) {
-      return html5QrCode.stop().then(() => {
-        html5QrCode.clear();
-        html5QrCode = null;
-        scannerDiv.classList.add('hidden');
-      }).catch(() => {
-        scannerDiv.classList.add('hidden');
-        html5QrCode = null;
-      });
+      return html5QrCode
+        .stop()
+        .then(() => {
+          html5QrCode.clear();
+          html5QrCode = null;
+          scannerDiv.classList.add('hidden');
+        })
+        .catch(() => {
+          scannerDiv.classList.add('hidden');
+          html5QrCode = null;
+        });
     }
     return Promise.resolve();
   }
@@ -109,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     stopScannerIfRunning();
 
     // In deze demo is de QR-code simpelweg de locatie (bv. "ENTRANCE")
-    const location = decodedText;
+    const location = decodedText || 'UNKNOWN';
 
     savePunch({
       email: currentUser.email,
@@ -164,9 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
         typeSpan.className = p.type === 'IN' ? 'type-in' : 'type-out';
 
         li.appendChild(typeSpan);
-        li.appendChild(document.createTextNode(
-          ` – ${tijd} – locatie: ${p.location}`
-        ));
+        li.appendChild(
+          document.createTextNode(
+            ` – ${tijd} – locatie: ${p.location}`
+          )
+        );
 
         list.appendChild(li);
       });
