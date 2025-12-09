@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>EASYBATCH Prikklok Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- QR scan library -->
+  <script src="https://unpkg.com/html5-qrcode" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <h1>EASYBATCH</h1>
+
+    <section id="login-section">
+      <h2>Login</h2>
+      <p class="hint">
+        Demo user: <strong>demo@demo.be</strong> / wachtwoord: <strong>demo</strong>
+      </p>
+      <label>
+        E-mail
+        <input id="email" type="email" autocomplete="email">
+      </label>
+      <label>
+        Wachtwoord
+        <input id="password" type="password" autocomplete="current-password">
+      </label>
+      <button id="login-btn">Inloggen</button>
+      <p id="login-error" class="error"></p>
+    </section>
+
+    <section id="main-section" class="hidden">
+      <div class="top-bar">
+        <span id="user-label"></span>
+        <button id="logout-btn" class="secondary">Uitloggen</button>
+      </div>
+
+      <section id="scan-section">
+        <h2>Scannen</h2>
+        <div class="scan-buttons">
+          <button id="scan-in-btn">Scan IN</button>
+          <button id="scan-out-btn">Scan OUT</button>
+        </div>
+        <div id="scanner" class="scanner hidden"></div>
+        <p id="scan-status"></p>
+      </section>
+
+      <section id="uren-section">
+        <h2>Mijn registraties (lokaal opgeslagen)</h2>
+        <ul id="uren-lijst" class="uren-lijst"></ul>
+      </section>
+    </section>
+  </div>
+</body>
+</html>
